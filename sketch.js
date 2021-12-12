@@ -35,6 +35,9 @@ function setup() {
   doraemon.setCollider('circle',0,0,350)
   doraemon.scale = 0.08;
  
+  doracake1 = createSprite(40,height-40,20,50)
+
+  mice1 = createSprite(30,195,20,30)
   invisibleGround =  createSprite(width/2,height-10,width,125);
 
 
@@ -65,7 +68,7 @@ function draw() {
   fill("black")
   text("Score: "+ score,30,50);
 
-  if(doraemon.isTouching(doracake)){
+  if(doraemon.isTouching(doracake1)){
     score = score + 1
   }
   
@@ -85,11 +88,11 @@ function draw() {
       ground.x = ground.width/2;
     }
   
-    doraemon.collided(invisibleGround);
+    doraemon.collide(invisibleGround);
     spawnDoracakes();
    
   
-    if(doraemon.isTouching(mice)){
+    if(doraemon.isTouching(mice1)){
         gameState = END;
     }
   }
@@ -103,7 +106,7 @@ function draw() {
     
     doraemon.changeAnimation("collided",doraemon_collided);
     
-    doracake.setLifetimeEach(-1);
+    doracake1.setLifetimeEach(-1);
    
     if(touches.length>0 || keyDown("SPACE") || mousePressedOver(restart)) {      
       reset();
@@ -114,22 +117,22 @@ function draw() {
 }
   function spawnDoracakes() {
     if(frameCount % 60 === 0) {
-      var doracake = createSprite(600,height-95,20,30);
+      var doracake1 = createSprite(600,height-95,20,30);
       doraemon.setCollider('circle',0,0,45)
 
     
-      doracake.velocityX = -(6 + 3*score/100);
+      doracake1.velocityX = -(6 + 3*score/100);
       
       var rand = Math.round(random(1,2));
       switch(rand) {
-        case 1: doracake.addImage(doracake);
+        case 1: doracake1.addImage(doracake);
                 break;
         default: break;
       }
       
-     doracake.scale = 0.3;
-     doracake.lifetime = 300;
-     doracake.depth = doraemon.depth;
+     doracake1.scale = 0.3;
+     doracake1.lifetime = 300;
+     doracake1.depth = doraemon.depth;
      doraemon.depth +=1;
     }
   }
